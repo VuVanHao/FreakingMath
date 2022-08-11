@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/RL"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0fffff"
+    tools:context=".MainActivity">
+
+
+    <SeekBar
+        android:id="@+id/skTime"
+        android:layout_width="319dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="35dp" />
+
+    <TextView
+        android:id="@+id/Score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="370dp"
+        android:layout_marginTop="50dp"
+        android:text="0"
+        android:textSize="30dp" />
+
+    <TextView
+        android:id="@+id/Number1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="150dp"
+        android:text="8"
+        android:textSize="100dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/Number2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="250dp"
+        android:layout_marginTop="150dp"
+        android:text="8"
+        android:textSize="100dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="180dp"
+        android:layout_marginTop="150dp"
+        android:text="+"
+        android:textSize="100dp" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="180dp"
+        android:layout_marginTop="250dp"
+        android:text="="
+        android:textSize="100dp" />
+
+    <TextView
+        android:id="@+id/KetQua"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="250dp"
+        android:layout_marginTop="250dp"
+        android:text="16"
+        android:textSize="100dp"
+        android:textStyle="bold" />
+
+    <ImageButton
+        android:id="@+id/True"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="400dp"
+        android:background="@drawable/anh5" />
+
+    <ImageButton
+        android:id="@+id/False"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginLeft="230dp"
+        android:layout_marginTop="400dp"
+        android:background="@drawable/anh4" />
+
+</RelativeLayout>
