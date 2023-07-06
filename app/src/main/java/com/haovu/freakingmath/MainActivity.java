@@ -4,6 +4,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -21,13 +22,14 @@ import java.util.TimerTask;
 public class MainActivity extends AppCompatActivity {
 
     SeekBar skTime;
-    TextView Score,Num1,Num2,KQ;
+    TextView Score,Num1,Num2,KQ, operator_text;
     ImageButton Dung,Sai;
     RelativeLayout lo;
     int score = 0;
     int thoigian;
     Timer timer;
     boolean flag = false;
+    int operator = 0;
     ArrayList<Integer> bgColor = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,14 +40,17 @@ public class MainActivity extends AppCompatActivity {
     }
     public void init()
     {
-        skTime = (SeekBar) findViewById(R.id.skTime);
-        Score = (TextView) findViewById(R.id.Score);
-        Num1 = (TextView) findViewById(R.id.Number1);
-        Num2 = (TextView) findViewById(R.id.Number2);
-        KQ = (TextView) findViewById(R.id.KetQua);
-        Dung = (ImageButton) findViewById(R.id.True);
-        Sai = (ImageButton) findViewById(R.id.False);
-        lo = (RelativeLayout) findViewById(R.id.RL);
+
+        flag = false;
+        skTime = findViewById(R.id.skTime);
+        Score = findViewById(R.id.Score);
+        Num1 = findViewById(R.id.Number1);
+        Num2 = findViewById(R.id.Number2);
+        KQ = findViewById(R.id.KetQua);
+        Dung = findViewById(R.id.True);
+        Sai = findViewById(R.id.False);
+        lo = findViewById(R.id.RL);
+        operator_text = findViewById(R.id.textView3);
         pheptoan();
         score = 0;
         Score.setText(String.valueOf(score));
@@ -56,19 +61,9 @@ public class MainActivity extends AppCompatActivity {
         {
             Lose();
         }
-        Dung.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dung();
-            }
-        });
+        Dung.setOnClickListener(view -> dung());
 
-        Sai.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                sai();
-            }
-        });
+        Sai.setOnClickListener(view -> sai());
     }
     public int getRandomMinMax(int min,int max)
     {
@@ -76,76 +71,178 @@ public class MainActivity extends AppCompatActivity {
     }
     public void pheptoan()
     {
-        int r1 = getRandomMinMax(0,51);
+        int r1 = getRandomMinMax(1,51);
         Num1.setText(String.valueOf(r1));
-        int r2 = getRandomMinMax(0,51);
+        int r2 = getRandomMinMax(1,51);
         Num2.setText(String.valueOf(r2));
+        operator = getRandomMinMax(1,4);
+        int r3 = 0;
+        switch (operator){
+            case 1:
+                operator_text.setText("+");
+                r3 = r1 + r2;
+                break;
+            case 2:
+                operator_text.setText("-");
+                r3 = r1 - r2;
+                break;
+            case 3:
+                operator_text.setText("*");
+                r3 = r1 * r2;
+                break;
+            case 4:
+                operator_text.setText(":");
+                r3 = r1 / r2;
+                break;
+        }
 
-        int r3 = r1 + r2;
-        int kq = getRandomMinMax(r3 - 3,r3 + 3);
+        double kq = (double) Math.round(getRandomMinMax(r3 - 3,r3 + 3) * 10) / 10;
         KQ.setText(String.valueOf(kq));
     }
     public void dung()
     {
         int So1 = Integer.parseInt(Num1.getText().toString());
         int So2 = Integer.parseInt(Num2.getText().toString());
-        int ketqua = Integer.parseInt(KQ.getText().toString());
-        if(So1 + So2 == ketqua)
-        {
-            score += 1;
-            pheptoan();
-            Score.setText(String.valueOf(score));
-            thoigian = 100;
-            runThoiGian();
-        }
-        else
-        {
-            Lose();
+        double ketqua = Double.parseDouble(KQ.getText().toString());
+        switch (operator){
+            case 1:
+                if(So1 + So2 == ketqua)
+                {
+                    score += 1;
+                    pheptoan();
+                    Score.setText(String.valueOf(score));
+                    thoigian = 100;
+                    runThoiGian();
+                }
+                else
+                {
+                    Lose();
+                }
+                break;
+            case 2:
+                if(So1 - So2 == ketqua)
+                {
+                    score += 1;
+                    pheptoan();
+                    Score.setText(String.valueOf(score));
+                    thoigian = 100;
+                    runThoiGian();
+                }
+                else
+                {
+                    Lose();
+                }
+                break;
+            case 3:
+                if(So1 * So2 == ketqua)
+                {
+                    score += 1;
+                    pheptoan();
+                    Score.setText(String.valueOf(score));
+                    thoigian = 100;
+                    runThoiGian();
+                }
+                else
+                {
+                    Lose();
+                }
+                break;
+            case 4:
+                if(So1 / So2 == ketqua)
+                {
+                    score += 1;
+                    pheptoan();
+                    Score.setText(String.valueOf(score));
+                    thoigian = 100;
+                    runThoiGian();
+                }
+                else
+                {
+                    Lose();
+                }
+                break;
         }
     }
     public void sai()
     {
         int So1 = Integer.parseInt(Num1.getText().toString());
         int So2 = Integer.parseInt(Num2.getText().toString());
-        int ketqua = Integer.parseInt(KQ.getText().toString());
-        if(So1 + So2 != ketqua)
-        {
-            score += 1;
-            pheptoan();
-            Score.setText(String.valueOf(score));
-            thoigian = 100;
-            runThoiGian(); // thời gian bị đè khi bấm đúng.
-
-        }
-        else
-        {
-            Lose();
+        double ketqua = Double.parseDouble(KQ.getText().toString());
+        switch (operator){
+            case 1:
+                if(So1 + So2 != ketqua)
+                {
+                    score += 1;
+                    pheptoan();
+                    Score.setText(String.valueOf(score));
+                    thoigian = 100;
+                    runThoiGian();
+                }
+                else
+                {
+                    Lose();
+                }
+                break;
+            case 2:
+                if(So1 - So2 != ketqua)
+                {
+                    score += 1;
+                    pheptoan();
+                    Score.setText(String.valueOf(score));
+                    thoigian = 100;
+                    runThoiGian();
+                }
+                else
+                {
+                    Lose();
+                }
+                break;
+            case 3:
+                if(So1 * So2 != ketqua)
+                {
+                    score += 1;
+                    pheptoan();
+                    Score.setText(String.valueOf(score));
+                    thoigian = 100;
+                    runThoiGian();
+                }
+                else
+                {
+                    Lose();
+                }
+                break;
+            case 4:
+                if((double)So1 / (double)So2 != ketqua)
+                {
+                    score += 1;
+                    pheptoan();
+                    Score.setText(String.valueOf(score));
+                    thoigian = 100;
+                    runThoiGian();
+                }
+                else
+                {
+                    Lose();
+                }
+                break;
         }
     }
     public void Lose()
     {
-        timer.cancel();
+        if (timer != null){
+            timer.cancel();
+        }
+
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
         builder.setTitle("Thông báo");// Đây là phần tiêu đề
         builder.setMessage("Bạn thua rồi. Bạn có muốn chơi tiếp không ?");// Nội dung
         builder.setCancelable(false);
-        //Positive là phím bên phải
-        builder.setPositiveButton("Chơi tiếp", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                init();
-            }
-        });
-        ////Negative là phím bên trái.
-        builder.setNegativeButton("Không", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                finishAffinity();
-                System.exit(0);
-            }
+        builder.setPositiveButton("Chơi tiếp", (dialogInterface, i) -> init());
+        builder.setNegativeButton("Không", (dialogInterface, i) -> {
+            finishAffinity();
+            System.exit(0);
         });
         builder.create().show();
-        // Bên trong là hành động sẽ thực kiện khi mình bấm phím.
     }
     public void runThoiGian()
     {
